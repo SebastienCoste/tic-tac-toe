@@ -1,8 +1,6 @@
-package fr.sttc.ttt.tttserver;
+package fr.sttc.ttt.tttserver.tournament;
 
-import java.awt.*;
 import java.util.Arrays;
-import java.util.Collections;
 
 public enum Team {
 

@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver;
+package fr.sttc.ttt.tttserver.tournament;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -48,14 +48,14 @@ public class TournamentClient {
         return null;
     }
 
-    public void tellMove(Integer move){
+    public void tellMove(Move move){
 
         if(!active){
             return;
         }
 
         Request request = new Request.Builder()
-                .url(url+"/move/" + gameId + "/" + move)
+                .url(url+"/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position)
                 .build();
 
         try {
