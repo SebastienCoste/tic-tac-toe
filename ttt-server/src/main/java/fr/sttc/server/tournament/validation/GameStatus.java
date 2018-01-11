@@ -1,6 +1,6 @@
-package fr.sttc.ttt.tttserver.tournament.validation;
+package fr.sttc.server.tournament.validation;
 
-import fr.sttc.ttt.tttserver.tournament.board.Team;
+import fr.sttc.server.tournament.board.Team;
 
 public class GameStatus {
 

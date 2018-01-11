@@ -1,12 +1,12 @@
-package fr.sttc.ttt.tttserver;
+package fr.sttc.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TttServerApplication {
+public class TournamentServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TttServerApplication.class, args);
+		SpringApplication.run(TournamentServerApplication.class, args);
 	}
 }

@@ -1,20 +1,24 @@
-package fr.sttc.ttt.tttserver.tournament.client;
+package fr.sttc.server.tournament.client;
 
-import fr.sttc.ttt.tttserver.api.TournamentApiClient;
-import fr.sttc.ttt.tttserver.tournament.board.Move;
-import fr.sttc.ttt.tttserver.tournament.board.ResultTournament;
-import fr.sttc.ttt.tttserver.tournament.board.Team;
+import fr.sttc.server.tictactoe.TicTacToeAction;
+import fr.sttc.server.tournament.board.Action;
+import fr.sttc.server.tournament.board.Move;
+import fr.sttc.server.tournament.board.ResultTournament;
+import fr.sttc.server.tournament.board.Team;
+import fr.sttc.server.api.TournamentApiClient;
 
-import java.util.function.Function;
 
-public class TournamentClient {
+public abstract class TournamentClient {
 
     private String url;
     private Boolean active;
     public String gameId;
     public Team team;
 
+
     private TournamentApiClient client = new TournamentApiClient();
+
+    public abstract Action getActionRepresentative();
 
     public TournamentClient(String url, String gameId, Team team){
         this.url = url;
@@ -24,13 +28,17 @@ public class TournamentClient {
     }
 
 
-    public Integer askForMove(){
+
+    public Action askForMove(){
 
         if(!active){
             return null;
         }
 
-        Integer move = client.sendEvent(new EventClient(url + "/ask/" + gameId), Integer::valueOf);
+        Action move = client.sendEvent(
+                new EventClient(url + "/ask/" + gameId),
+                getActionRepresentative().getDeserializer()
+        );
         if(move == null){
             active = false;
         }
@@ -44,8 +52,8 @@ public class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(url+"/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position),
-                Function.identity());
+                new EventClient(url+"/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position.serializeIt()),
+                null);
 
     }
 
@@ -57,7 +65,7 @@ public class TournamentClient {
 
         client.sendEvent(
                 new EventClient(url+"/result/" + gameId + "/" + result.toString().toLowerCase()),
-                Function.identity());
+                null);
 
         active = false;
 

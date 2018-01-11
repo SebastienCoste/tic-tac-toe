@@ -1,8 +1,10 @@
-package fr.sttc.ttt.tttserver.api;
+package fr.sttc.server.api;
 
-import fr.sttc.ttt.tttserver.tournament.board.Move;
-import fr.sttc.ttt.tttserver.tournament.board.ResultTournament;
-import fr.sttc.ttt.tttserver.tournament.client.TournamentClient;
+import fr.sttc.server.api.tictactoe.TicTacToeRunnableRunnable;
+import fr.sttc.server.tournament.board.Action;
+import fr.sttc.server.tournament.board.Move;
+import fr.sttc.server.tournament.board.ResultTournament;
+import fr.sttc.server.tournament.client.TournamentClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,18 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class TournamentApiClients {
 
 
-    private final static Logger logger = LoggerFactory.getLogger(RunnableTournament.class);
+    private final static Logger logger = LoggerFactory.getLogger(TicTacToeRunnableRunnable.class);
 
     public static ExecutorService executorService = new ThreadPoolExecutor(1, 8, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
 
-    public final CompletionService<Integer> completionAskingForMoveService;
+    public final CompletionService<Action> completionAskingForMoveService;
 
     public TournamentApiClients() {
         completionAskingForMoveService = new ExecutorCompletionService<>(executorService);
@@ -48,19 +48,18 @@ public class TournamentApiClients {
         clients.forEach(client -> executorService.submit(() -> client.tellResult(result)));
     }
 
-    public Map<Integer, Integer> callForVotes(List<TournamentClient> clients, Integer numberOfMove) {
-        clients.stream().forEach(client -> completionAskingForMoveService.submit(client::askForMove));
+    public Map<Action, Integer> callForVotes(List<TournamentClient> clients, Integer numberOfMove) {
+        clients.forEach(client -> completionAskingForMoveService.submit(client::askForMove));
 
         TournamentClient unionRepresentative = clients.get(0);
 
         int received = 0;
-        Map<Integer, Integer> voteByNumber = new HashMap<>();
-        IntStream.rangeClosed(0, 8).forEach(i -> voteByNumber.put(i, 0));
+        Map<Action, Integer> voteByNumber = new HashMap<>();
         while(received < clients.size()) {
             try {
-                Future<Integer> resultFuture = completionAskingForMoveService.take(); //blocks if none available
-                Integer move = resultFuture.get();
-                voteByNumber.put(move, voteByNumber.get(move) +1);
+                Future<Action> resultFuture = completionAskingForMoveService.take(); //blocks if none available
+                Action move = resultFuture.get();
+                voteByNumber.merge(move, 1, (a,b) -> a+b);
                 logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s] vote for %s", unionRepresentative.gameId, numberOfMove.toString(), unionRepresentative.team.toString(), move.toString()));
             }
             catch(Exception e) {

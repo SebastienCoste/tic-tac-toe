@@ -1,6 +1,7 @@
-package fr.sttc.ttt.tttserver.api;
+package fr.sttc.server.api;
 
-import fr.sttc.ttt.tttserver.tournament.client.EventClient;
+import fr.sttc.server.tournament.board.Action;
+import fr.sttc.server.tournament.client.EventClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,11 +18,11 @@ public class TournamentApiClient {
             .build();
 
 
-    public <T> T sendEvent(EventClient event, Function<String, T> caster){
+    public <T extends Action> T sendEvent(EventClient event, Function<String, T> caster){
 
         try {
             Response response = client.newCall(getRequestFromEvent(event)).execute();
-            return caster.apply(response.body() == null ? null : response.body().string());
+            return caster == null ? null : caster.apply(response.body() == null ? null : response.body().string());
         } catch (Exception e) {
             e.printStackTrace();
             return null;

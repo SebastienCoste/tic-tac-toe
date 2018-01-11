@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver.tournament.board;
+package fr.sttc.server.tournament.board;
 
 public enum ResultTournament {
     WIN,

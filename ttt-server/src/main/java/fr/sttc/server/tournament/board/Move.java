@@ -1,13 +1,13 @@
-package fr.sttc.ttt.tttserver.tournament.board;
+package fr.sttc.server.tournament.board;
 
 public class Move {
 
     public String gameId;
     public Team team;
-    public Integer position;
+    public Action position;
     public Integer moveNumber;
 
-    public Move(String gameId, Team team, Integer position, Integer moveNumber) {
+    public Move(String gameId, Team team, Action position, Integer moveNumber) {
         this.gameId = gameId;
         this.team = team;
         this.position = position;

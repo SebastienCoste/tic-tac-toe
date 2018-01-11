@@ -1,14 +1,15 @@
-package fr.sttc.ttt.tttserver.tournament.validation;
+package fr.sttc.server.tictactoe;
 
-import fr.sttc.ttt.tttserver.tournament.board.ResultTournament;
-import fr.sttc.ttt.tttserver.tournament.board.Team;
+import fr.sttc.server.tournament.validation.GameState;
+import fr.sttc.server.tournament.validation.GameStatus;
+import fr.sttc.server.tournament.validation.TournamentReferee;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
 
-public class TournamentReferee {
+public class TicTacToeReferee implements TournamentReferee {
 
     private static final List<List<Integer>> ALL_POSSIBILITIES = Arrays.asList(
             (List<Integer>) Arrays.asList(0, 1, 2),
@@ -25,19 +26,18 @@ public class TournamentReferee {
     public static final String EMPTY = "";
 
 
-    public static GameStatus evaluateBoard(String[] board) {
+    public GameStatus evaluateBoard(String[] board) {
 
         Optional<String> winner = reducePossibilities(board, reduceForWinner());
         if (winner.isPresent()) {
-            return new GameStatus(GameState.ENDED, Team.from(winner.get()));
+            return new GameStatus(GameState.ENDED, TicTacToeTeam.CROSS.from(winner.get()));
         } else if (!reducePossibilities(board, reduceForAnyWinnable()).isPresent()) {
             return new GameStatus(GameState.ENDED, null);
         }
         return new GameStatus(GameState.RUNNING, null);
     }
 
-
-    private static Optional<String> reducePossibilities(String[] board, BinaryOperator<String> reducer) {
+    private Optional<String> reducePossibilities(String[] board, BinaryOperator<String> reducer) {
         return ALL_POSSIBILITIES
                 .stream()
                 .map(lst ->
@@ -49,7 +49,7 @@ public class TournamentReferee {
                 .findAny();
     }
 
-    private static BinaryOperator<String> reduceForAnyWinnable() {
+    private BinaryOperator<String> reduceForAnyWinnable() {
         return (l, r) -> {
             if (STARTER_REDUCE.equals(l) || EMPTY.equals(l)) {
                 return r;
@@ -63,7 +63,7 @@ public class TournamentReferee {
         };
     }
 
-    private static BinaryOperator<String> reduceForWinner() {
+    private BinaryOperator<String> reduceForWinner() {
         return (l, r) -> {
             if (EMPTY.equals(l) || EMPTY.equals(r)) {
                 return STARTER_REDUCE;

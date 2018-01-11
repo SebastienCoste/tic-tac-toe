@@ -1,6 +1,7 @@
-package fr.sttc.ttt.tttserver.tournament.register;
+package fr.sttc.server.tictactoe;
 
-import fr.sttc.ttt.tttserver.api.RunnableTournament;
+import fr.sttc.server.api.TournamentRunnable;
+import fr.sttc.server.api.tictactoe.TicTacToeRunnableRunnable;
 import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
@@ -28,7 +29,7 @@ public class Tournament {
     }
 
     private void run() {
-        RunnableTournament runner = new RunnableTournament(cross, round, gameId);
+        TournamentRunnable runner = new TicTacToeRunnableRunnable(cross, round, gameId);
         runner.run();
     }
 

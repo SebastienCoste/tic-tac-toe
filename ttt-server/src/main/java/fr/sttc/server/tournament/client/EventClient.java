@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver.tournament.client;
+package fr.sttc.server.tournament.client;
 
 public class EventClient {
 
