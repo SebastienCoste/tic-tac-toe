@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver.tournament;
+package fr.sttc.ttt.tttserver.tournament.board;
 
 import java.util.Arrays;
 
@@ -23,7 +23,7 @@ public enum Team {
 
     public static Team from(String letter){
 
-        return Arrays.asList(Team.values()).stream().filter(t -> t.letter.equals(letter))
+        return Arrays.stream(Team.values()).filter(t -> t.letter.equals(letter))
                 .findFirst().orElse(null);
     }
 }

@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver.tournament;
+package fr.sttc.ttt.tttserver.tournament.board;
 
 public class Move {
 

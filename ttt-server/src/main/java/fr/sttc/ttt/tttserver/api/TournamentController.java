@@ -1,7 +1,7 @@
 package fr.sttc.ttt.tttserver.api;
 
 
-import fr.sttc.ttt.tttserver.tournament.TournamentManager;
+import fr.sttc.ttt.tttserver.tournament.register.TournamentManager;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

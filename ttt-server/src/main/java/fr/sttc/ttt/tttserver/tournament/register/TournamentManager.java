@@ -1,4 +1,4 @@
-package fr.sttc.ttt.tttserver.tournament;
+package fr.sttc.ttt.tttserver.tournament.register;
 
 import org.springframework.stereotype.Component;
 

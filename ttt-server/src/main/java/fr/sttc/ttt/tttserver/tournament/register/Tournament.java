@@ -1,5 +1,6 @@
-package fr.sttc.ttt.tttserver.tournament;
+package fr.sttc.ttt.tttserver.tournament.register;
 
+import fr.sttc.ttt.tttserver.api.RunnableTournament;
 import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
@@ -18,22 +19,10 @@ public class Tournament {
 
     public boolean start(){
 
-        if(isStarted || cross.size() + round.size() <2){
+        if(isStarted || cross.size() ==0 || round.size() == 0){
             return false;
         }
-
-        if(cross.size() == 0){
-            long switchPlayer = Math.round(Math.random() * round.size());
-            cross.add(nthElement(round, switchPlayer));
-        }
-
-        if(round.size() == 0){
-            long switchPlayer = Math.round(Math.random() * cross.size());
-            round.add(nthElement(cross, switchPlayer));
-        }
-
         isStarted = true;
-
         run();
         return true;
     }
@@ -59,31 +48,11 @@ public class Tournament {
     }
 
     private boolean registerCross(String url) {
-        if(round.contains(url) || cross.contains(url)){
-            return false;
-        }
-        return cross.add(url);
-
+        return !round.contains(url) && !cross.contains(url) && cross.add(url);
     }
 
     private boolean registerRound(String url) {
-        if(round.contains(url) || cross.contains(url)){
-            return false;
-        }
-        return round.add(url);
+        return !round.contains(url) && !cross.contains(url) && round.add(url);
     }
-
-    private String nthElement(Set<String>data, long n){
-        long index = 0;
-        for(String element : data){
-            if(index == n){
-                data.remove(element);
-                return element;
-            }
-            index++;
-        }
-        return null;
-    }
-
 
 }
