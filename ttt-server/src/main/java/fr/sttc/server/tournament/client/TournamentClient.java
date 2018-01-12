@@ -38,7 +38,7 @@ public abstract class TournamentClient {
         }
 
         Action move = client.sendEvent(
-                new EventClient(url + "/" + game + "/ask/" + gameId),
+                new EventClient("http://" + url + "/" + game + "/ask/" + gameId),
                 getActionRepresentative().getDeserializer()
         );
         if(move == null){
@@ -54,7 +54,7 @@ public abstract class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(url + "/" + game + "/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position.serializeIt()),
+                new EventClient("http://" + url + "/" + game + "/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position.serializeIt()),
                 null);
 
     }
@@ -66,7 +66,7 @@ public abstract class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(url + "/" + game + "/result/" + gameId + "/" + result.toString().toLowerCase()),
+                new EventClient("http://" + url + "/" + game + "/result/" + gameId + "/" + result.toString().toLowerCase()),
                 null);
 
         active = false;
