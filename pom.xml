@@ -9,5 +9,22 @@
     <version>1.0-SNAPSHOT</version>
 
 
+    <properties>
+        <assertj-core.version>3.6.2</assertj-core.version>
+    </properties>
 
+    <modules>
+        <module>client</module>
+        <module>server</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
