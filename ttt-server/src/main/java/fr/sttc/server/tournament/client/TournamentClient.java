@@ -1,11 +1,10 @@
 package fr.sttc.server.tournament.client;
 
-import fr.sttc.server.tictactoe.TicTacToeAction;
+import fr.sttc.server.api.TournamentApiClient;
 import fr.sttc.server.tournament.board.Action;
 import fr.sttc.server.tournament.board.Move;
 import fr.sttc.server.tournament.board.ResultTournament;
 import fr.sttc.server.tournament.board.Team;
-import fr.sttc.server.api.TournamentApiClient;
 
 
 public abstract class TournamentClient {

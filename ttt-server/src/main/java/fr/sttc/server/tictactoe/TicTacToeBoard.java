@@ -44,14 +44,9 @@ public class TicTacToeBoard implements TournamentBoard {
 
     @Override
     public void runNextMove() {
-        Integer position;
         numberOfMove++;
         logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s]", gameId, numberOfMove.toString(), team.toString()));
-        if (team == TicTacToeTeam.ROUND) {
-            position = requestVotesToPlayers(round).value();
-        } else {
-            position = requestVotesToPlayers(cross).value();
-        }
+        Integer position = requestVotesToPlayers(team == TicTacToeTeam.ROUND ? round : cross).value();
         if (position == null || position < 0 || position > 8) {
             sayWinAndLoose(team.next());
         } else {

@@ -3,6 +3,7 @@ package fr.sttc.server.tournament.register;
 import fr.sttc.server.tictactoe.Tournament;
 import fr.sttc.server.tournament.client.TournamentClient;
 import fr.sttc.server.tournament.game.Game;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TournamentFactory {
 
@@ -13,7 +14,7 @@ public class TournamentFactory {
                 return new Tournament(gameId);
 
             case CONNECT4:
-                return new Tournament(gameId);
+                throw new NotImplementedException();
         }
 
         return null;
