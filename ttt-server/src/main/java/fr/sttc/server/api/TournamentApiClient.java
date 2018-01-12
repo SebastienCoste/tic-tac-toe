@@ -2,14 +2,19 @@ package fr.sttc.server.api;
 
 import fr.sttc.server.tournament.board.Action;
 import fr.sttc.server.tournament.client.EventClient;
+import fr.sttc.server.tournament.client.TournamentClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class TournamentApiClient {
+
+    private final static Logger logger = LoggerFactory.getLogger(TournamentApiClient.class);
 
     private final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(500, TimeUnit.MILLISECONDS)
@@ -21,7 +26,9 @@ public class TournamentApiClient {
     public <T extends Action> T sendEvent(EventClient event, Function<String, T> caster){
 
         try {
+            logger.info(String.format("call server -> client: %s", event.request));
             Response response = client.newCall(getRequestFromEvent(event)).execute();
+            logger.info(String.format("call server -> client: response: %s", response.body() == null ? "" : response.body().toString()));
             return caster == null ? null : caster.apply(response.body() == null ? null : response.body().string());
         } catch (Exception e) {
             e.printStackTrace();

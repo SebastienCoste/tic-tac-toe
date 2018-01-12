@@ -6,6 +6,8 @@ import fr.sttc.server.tournament.board.Move;
 import fr.sttc.server.tournament.board.ResultTournament;
 import fr.sttc.server.tournament.board.Team;
 import fr.sttc.server.tournament.game.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public abstract class TournamentClient {
@@ -15,6 +17,7 @@ public abstract class TournamentClient {
     public String gameId;
     public Team team;
     private Game game;
+
 
 
     private TournamentApiClient client = new TournamentApiClient();

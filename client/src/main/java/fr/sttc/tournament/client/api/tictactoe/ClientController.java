@@ -2,6 +2,8 @@ package fr.sttc.tournament.client.api.tictactoe;
 
 import fr.sttc.tournament.client.tournament.ClientManager;
 import fr.sttc.tournament.client.tournament.game.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,21 +16,35 @@ import javax.validation.constraints.NotNull;
 @RequestMapping(value= "/tournament/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
 public class ClientController {
 
+    private final static Logger logger = LoggerFactory.getLogger(ClientController.class);
+
     private final ClientManager clientManager;
 
     public ClientController(ClientManager clientManager) {
         this.clientManager = clientManager;
     }
 
-    @RequestMapping(path = "/register/{gameId}/{team}/{url}", method = RequestMethod.GET)
-    public Boolean register (@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String url){
-
-        return clientManager.register(Game.TICTACTOE, gameId, team, url);
+    @RequestMapping(path = "/register/{gameId}/{team}/{serverUrl}", method = RequestMethod.GET)
+    public Boolean register (@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String serverUrl){
+        logger.info(String.format("/tournament/tictactoe/register/%s/%s/%s",
+                gameId, team, serverUrl
+                ));
+        Boolean register = clientManager.register(Game.TICTACTOE, gameId, team, serverUrl);
+        logger.info(String.format("/tournament/tictactoe/register/%s/%s/%s : %s",
+                gameId, team, serverUrl, register.toString()
+        ));
+        return register;
     }
 
-    @RequestMapping(path = "/start/{gameId}", method = RequestMethod.GET)
-    public Boolean start (@NotNull @PathVariable String gameId){
-
-        return clientManager.start(Game.TICTACTOE, gameId);
+    @RequestMapping(path = "/start/{gameId}/{serverUrl}", method = RequestMethod.GET)
+    public Boolean start (@NotNull @PathVariable String gameId, @NotNull @PathVariable String serverUrl){
+        logger.info(String.format("/tournament/tictactoe/start/%s",
+                gameId
+        ));
+        Boolean started = clientManager.start(Game.TICTACTOE, gameId, serverUrl);
+        logger.info(String.format("/tournament/tictactoe/start/%s : %s",
+                gameId, started
+        ));
+        return started;
     }
 }

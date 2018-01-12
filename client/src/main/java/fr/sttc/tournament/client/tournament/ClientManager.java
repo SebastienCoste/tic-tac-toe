@@ -28,15 +28,16 @@ public class ClientManager {
         this.clientUrl = clientUrl;
     }
 
-    public Boolean register(Game game, String gameId, String team, String url) {
+    public Boolean register(Game game, String gameId, String team, String serverUrlBase) {
 
         try {
-            String serverUrl = String.format("/tournament/%s/register/%s/%s/%s",
+            String serverUrlFull = String.format("http://%s/tournament/%s/register/%s/%s/%s",
+                    serverUrlBase,
                     game.toString().toLowerCase(),
                     gameId,
                     team,
                     this.clientUrl);
-            client.newCall(getRequestFromEvent(serverUrl)).execute();
+            client.newCall(getRequestFromEvent(serverUrlFull)).execute();
         } catch (IOException e) {
             logger.error(e.getMessage());
             return false;
@@ -44,12 +45,13 @@ public class ClientManager {
         return true;
     }
 
-    public Boolean start(Game game, String gameId) {
+    public Boolean start(Game game, String gameId, String serverUrlBase) {
         try {
-            String serverUrl = String.format("/tournament/%s/start/%s",
+            String serverUrlFull = String.format("http://%s/tournament/%s/start/%s",
+                    serverUrlBase,
                     game.toString().toLowerCase(),
                     gameId);
-            client.newCall(getRequestFromEvent(serverUrl)).execute();
+            client.newCall(getRequestFromEvent(serverUrlFull)).execute();
         } catch (IOException e) {
             logger.error(e.getMessage());
             return false;
