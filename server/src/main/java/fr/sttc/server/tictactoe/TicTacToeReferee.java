@@ -75,8 +75,8 @@ public class TicTacToeReferee implements TournamentReferee {
     private BinaryOperator<String> reduceForWinner() {
         return (l, r) -> {
             if (EMPTY.equals(l) || EMPTY.equals(r)) {
-                return STARTER_REDUCE;
-            }else if (STARTER_REDUCE.equals(l)) {
+                return UNMATCH;
+            } else if (STARTER_REDUCE.equals(l)) {
                 return r;
             } else if (STARTER_REDUCE.equals(r)) {
                 return l;
