@@ -1,4 +1,4 @@
-package fr.sttc.server.tictactoe;
+package fr.sttc.server.api.tictactoe;
 
 
 import fr.sttc.server.tournament.game.Game;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(value= "/fr/sttc/server/tournament", produces = MediaType.TEXT_PLAIN_VALUE)
+@RequestMapping(value= "/tournament", produces = MediaType.TEXT_PLAIN_VALUE)
 public class TournamentController {
 
     private final TournamentManager tournamentManager;
