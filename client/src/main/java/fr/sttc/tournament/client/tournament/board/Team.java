@@ -1,4 +1,4 @@
-package fr.sttc.server.tournament.board;
+package fr.sttc.tournament.client.tournament.board;
 
 import java.util.Arrays;
 
