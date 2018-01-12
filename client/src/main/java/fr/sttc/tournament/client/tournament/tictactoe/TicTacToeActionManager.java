@@ -19,6 +19,11 @@ public class TicTacToeActionManager implements ActionManager {
 
 
     @Override
+    public Boolean createBoard(String gameId) {
+        return allBoards.put(gameId, new TicTacToeBoard()) != null;
+    }
+
+    @Override
     public Action askForMove(String gameId) {
         TicTacToeBoard ticTacToeBoard = allBoards.get(gameId);
         return new TicTacToeAction(

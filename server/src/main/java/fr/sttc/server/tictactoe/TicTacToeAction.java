@@ -29,7 +29,7 @@ public class TicTacToeAction implements Action {
         return s -> {
             Integer pos = null;
             try {
-                pos = s == null ? null : Integer.valueOf(s);
+                pos = s == null ? -1 : Integer.valueOf(s);
             }catch (NumberFormatException nfe){
             }
             return new TicTacToeAction(pos);

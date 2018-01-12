@@ -56,12 +56,12 @@ public class GameController {
     }
 
     @RequestMapping(path = "/result/{gameId}/{result}", method = RequestMethod.GET)
-    public Boolean tellTheResult (@NotNull @PathVariable String gameId, @NotNull @PathVariable ResultTournament result){
+    public Boolean tellTheResult (@NotNull @PathVariable String gameId, @NotNull @PathVariable String result){
 
         logger.info(String.format("/tictactoe/result/%s/%s",
-                gameId, result.toString()
+                gameId, result
         ));
-        Boolean received = ticTacToeActionManager.tellTheResult(gameId, result);
+        Boolean received = ticTacToeActionManager.tellTheResult(gameId, ResultTournament.valueOf(result.toUpperCase()));
         logger.info(String.format("/tictactoe/result/%s/%s : %s",
                 gameId, result.toString(), received.toString()
         ));
