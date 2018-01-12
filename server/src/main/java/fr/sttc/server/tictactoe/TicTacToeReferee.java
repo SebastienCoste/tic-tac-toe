@@ -67,8 +67,7 @@ public class TicTacToeReferee implements TournamentReferee {
         return (l, r) -> {
             if (EMPTY.equals(l) || EMPTY.equals(r)) {
                 return STARTER_REDUCE;
-            }
-            if (STARTER_REDUCE.equals(l)) {
+            }else if (STARTER_REDUCE.equals(l)) {
                 return r;
             } else if (STARTER_REDUCE.equals(r)) {
                 return l;
