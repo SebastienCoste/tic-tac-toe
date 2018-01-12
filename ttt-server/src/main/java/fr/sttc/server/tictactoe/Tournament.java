@@ -34,7 +34,7 @@ public class Tournament {
     }
 
     public synchronized boolean register(String team, String url) {
-        if (!isStarted || StringUtils.isEmpty(team) || StringUtils.isEmpty(url)) {
+        if (isStarted || StringUtils.isEmpty(team) || StringUtils.isEmpty(url)) {
             return false;
         }
 
