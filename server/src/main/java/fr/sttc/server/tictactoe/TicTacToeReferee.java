@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 
 public class TicTacToeReferee implements TournamentReferee {
 
@@ -28,16 +29,16 @@ public class TicTacToeReferee implements TournamentReferee {
 
     public GameStatus evaluateBoard(String[] board) {
 
-        Optional<String> winner = reducePossibilities(board, reduceForWinner());
+        Optional<String> winner = reducePossibilities(board, reduceForWinner(), getWinnerFilter());
         if (winner.isPresent()) {
             return new GameStatus(GameState.ENDED, TicTacToeTeam.CROSS.from(winner.get()));
-        } else if (!reducePossibilities(board, reduceForAnyWinnable()).isPresent()) {
+        } else if (!reducePossibilities(board, reduceForAnyWinnable(), getWinnableFilter()).isPresent()) {
             return new GameStatus(GameState.ENDED, null);
         }
         return new GameStatus(GameState.RUNNING, null);
     }
 
-    private Optional<String> reducePossibilities(String[] board, BinaryOperator<String> reducer) {
+    private Optional<String> reducePossibilities(String[] board, BinaryOperator<String> reducer, Predicate<String> filter) {
         return ALL_POSSIBILITIES
                 .stream()
                 .map(lst ->
@@ -45,8 +46,16 @@ public class TicTacToeReferee implements TournamentReferee {
                                 .reduce(STARTER_REDUCE,
                                         reducer
                                 )
-                ).filter(res -> !UNMATCH.equals(res))
+                ).filter(filter)
                 .findAny();
+    }
+
+    private Predicate<String> getWinnableFilter() {
+        return res -> !UNMATCH.equals(res);
+    }
+
+    private Predicate<String> getWinnerFilter() {
+        return res -> !UNMATCH.equals(res) && !EMPTY.equals(res) && !STARTER_REDUCE.equals(res);
     }
 
     private BinaryOperator<String> reduceForAnyWinnable() {
