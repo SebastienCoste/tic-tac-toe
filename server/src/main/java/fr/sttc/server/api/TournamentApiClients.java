@@ -60,7 +60,8 @@ public class TournamentApiClients {
                 Future<Action> resultFuture = completionAskingForMoveService.take(); //blocks if none available
                 Action move = resultFuture.get();
                 voteByNumber.merge(move, 1, (a,b) -> a+b);
-                logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s] vote for %s", unionRepresentative.gameId, numberOfMove.toString(), unionRepresentative.team.toString(), move.toString()));
+                logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s] vote for %s", unionRepresentative.gameId, numberOfMove.toString(), unionRepresentative.team.toString(),
+                        move.value().toString()));
             }
             catch(Exception e) {
                 logger.error(e.getMessage());
