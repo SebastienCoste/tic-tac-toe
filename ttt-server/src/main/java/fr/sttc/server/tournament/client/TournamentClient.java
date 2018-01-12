@@ -5,6 +5,7 @@ import fr.sttc.server.tournament.board.Action;
 import fr.sttc.server.tournament.board.Move;
 import fr.sttc.server.tournament.board.ResultTournament;
 import fr.sttc.server.tournament.board.Team;
+import fr.sttc.server.tournament.game.Game;
 
 
 public abstract class TournamentClient {
@@ -13,14 +14,16 @@ public abstract class TournamentClient {
     private Boolean active;
     public String gameId;
     public Team team;
+    private Game game;
 
 
     private TournamentApiClient client = new TournamentApiClient();
 
     public abstract Action getActionRepresentative();
 
-    public TournamentClient(String url, String gameId, Team team){
+    public TournamentClient(String url, String gameId, Team team, Game game){
         this.url = url;
+        this.game = game;
         this.active = true;
         this.gameId = gameId;
         this.team = team;
@@ -35,7 +38,7 @@ public abstract class TournamentClient {
         }
 
         Action move = client.sendEvent(
-                new EventClient(url + "/ask/" + gameId),
+                new EventClient(url + "/" + game + "/ask/" + gameId),
                 getActionRepresentative().getDeserializer()
         );
         if(move == null){
@@ -51,7 +54,7 @@ public abstract class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(url+"/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position.serializeIt()),
+                new EventClient(url + "/" + game + "/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber + "/" + move.position.serializeIt()),
                 null);
 
     }
@@ -63,7 +66,7 @@ public abstract class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(url+"/result/" + gameId + "/" + result.toString().toLowerCase()),
+                new EventClient(url + "/" + game + "/result/" + gameId + "/" + result.toString().toLowerCase()),
                 null);
 
         active = false;

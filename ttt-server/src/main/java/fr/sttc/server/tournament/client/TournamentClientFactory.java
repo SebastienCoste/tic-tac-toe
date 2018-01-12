@@ -4,6 +4,7 @@ import fr.sttc.server.tictactoe.TicTacToeClient;
 import fr.sttc.server.tictactoe.TicTacToeTeam;
 import fr.sttc.server.tournament.board.Team;
 import fr.sttc.server.tournament.game.Game;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,9 +16,9 @@ public class TournamentClientFactory {
 
         switch (game){
             case TICTACTOE:
-                return new TicTacToeClient(url, gameId, (TicTacToeTeam) team);
+                return new TicTacToeClient(url, gameId, (TicTacToeTeam) team, game);
             case CONNECT4:
-                return new TicTacToeClient(url, gameId, (TicTacToeTeam) team);
+                throw new NotImplementedException();
         }
         return null;
     }
