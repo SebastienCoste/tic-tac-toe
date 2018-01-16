@@ -20,7 +20,7 @@ public class TournamentManager  {
 
     public boolean close (Game game, String gameId){
 
-        return tournaments.remove(gameId) != null;
+        return tournaments.remove(getTournamentId(game, gameId)) != null;
     }
 
     public boolean start (Game game, String gameId){
@@ -29,12 +29,17 @@ public class TournamentManager  {
     }
 
     private synchronized Tournament getTournament(Game game, String gameId) {
-        Tournament tournament = tournaments.get(gameId);
+        String tournamentId = getTournamentId(game, gameId);
+        Tournament tournament = tournaments.get(tournamentId);
         if(tournament == null){
-            tournament = TournamentFactory.buildTournament(game, gameId);
-            tournaments.put(gameId,tournament);
+            tournament = TournamentFactory.buildTournament(game, tournamentId);
+            tournaments.put(tournamentId,tournament);
         }
 
         return tournament;
+    }
+
+    private String getTournamentId(Game game, String gameId) {
+        return gameId;
     }
 }

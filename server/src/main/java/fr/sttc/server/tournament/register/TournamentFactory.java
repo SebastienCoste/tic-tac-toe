@@ -8,10 +8,10 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class TournamentFactory {
 
 
-    public static Tournament buildTournament(Game game, String gameId ){
+    public static Tournament buildTournament(Game game, String tournamentId ){
         switch (game){
             case TICTACTOE:
-                return new Tournament(gameId);
+                return new Tournament(tournamentId);
 
             case CONNECT4:
                 throw new NotImplementedException();

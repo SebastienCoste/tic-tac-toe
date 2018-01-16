@@ -10,6 +10,8 @@ public interface Team {
 
     Team newTeam();
 
+    String getLetter();
+
     Team[] allValues();
 
     default Team from(String letter){

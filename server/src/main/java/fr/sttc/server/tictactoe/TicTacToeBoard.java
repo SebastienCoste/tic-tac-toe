@@ -44,7 +44,7 @@ public class TicTacToeBoard implements TournamentBoard {
 
     @Override
     public void runNextMove() {
-        if(isFinished){
+        if (isFinished) {
             logger.error("game is finished, why keep asking the board ?");
         } else {
             numberOfMove++;
@@ -66,7 +66,7 @@ public class TicTacToeBoard implements TournamentBoard {
         }
         board[position] = team.letter;
         GameStatus status = referee.evaluateBoard(board);
-        if(status.state == GameState.ENDED){
+        if (status.state == GameState.ENDED) {
             sayWinAndLoose((TicTacToeTeam) status.winner);
         }
     }
@@ -82,7 +82,7 @@ public class TicTacToeBoard implements TournamentBoard {
 
         logger.info(String.format("GAME [%s] MOVE [%s], winning team is %s", gameId, numberOfMove.toString(), winningTeam != null ? winningTeam.toString() : "none"));
 
-        if(winningTeam == null){
+        if (winningTeam == null) {
             tournamentApiClients.tellThemItsATie(this.cross);
             tournamentApiClients.tellThemItsATie(this.round);
         } else {
@@ -110,4 +110,18 @@ public class TicTacToeBoard implements TournamentBoard {
 
         return entry == null || entry.getValue() == 0 ? TicTacToeAction.EMPTY : (TicTacToeAction) entry.getKey();
     }
+
+    @Override
+    public String toString() {
+        return board[0] +
+                board[1] +
+                board[2] + "\n" +
+                board[3] +
+                board[4] +
+                board[5] + "\n" +
+                board[6] +
+                board[7] +
+                board[8];
+    }
+
 }

@@ -13,4 +13,17 @@ public class TicTacToeEvent {
         this.moveNumber = moveNumber;
         this.action = action;
     }
+
+    public String getBoardValue(){
+        return team == null ? " " : team.letter;
+    }
+
+    @Override
+    public String toString() {
+        return "TicTacToeEvent{" +
+                "team=" + team +
+                ", moveNumber=" + moveNumber +
+                ", action=" + action +
+                '}';
+    }
 }

@@ -29,7 +29,7 @@ public class TournamentApiClient {
             logger.info(String.format("call server -> client: %s", event.request));
             Response response = client.newCall(getRequestFromEvent(event)).execute();
             T result = caster == null ? null : caster.apply(response.body() == null ? null : response.body().string());
-            logger.info(String.format("call server -> client: response: %s", result == null ? "" : result.value().toString()));
+            logger.info(String.format("call server -> client: response: %s", result == null || result.value() == null ? "" : result.value().toString()));
             return result;
         } catch (Exception e) {
             e.printStackTrace();

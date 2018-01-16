@@ -40,14 +40,14 @@ public class GameController {
 
     @RequestMapping(path = "/move/{gameId}/{team}/{moveNumber}/{serializedMove}", method = RequestMethod.GET)
     public Boolean tellTheMove (@NotNull @PathVariable String gameId,
-                                @NotNull @PathVariable TicTacToeTeam team,
+                                @NotNull @PathVariable String team,
                                 @NotNull @PathVariable Integer moveNumber,
                                 @NotNull @PathVariable String serializedMove){
 
         logger.info(String.format("/tictactoe/move/%s/%s/%s/%s",
                 gameId, team.toString(), moveNumber.toString(), serializedMove
         ));
-        Boolean received = ticTacToeActionManager.tellTheMove(gameId, team, moveNumber, TicTacToeAction.EMPTY.getDeserializer().apply(serializedMove));
+        Boolean received = ticTacToeActionManager.tellTheMove(gameId, TicTacToeTeam.fromName(team), moveNumber, TicTacToeAction.EMPTY.getDeserializer().apply(serializedMove));
 
         logger.info(String.format("/tictactoe/move/%s/%s/%s/%s : %s",
                 gameId, team.toString(), moveNumber.toString(), serializedMove, received.toString()

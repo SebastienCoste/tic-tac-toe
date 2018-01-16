@@ -1,9 +1,12 @@
 package fr.sttc.tournament.client.tournament.tictactoe;
 
+import fr.sttc.tournament.client.api.tictactoe.GameController;
 import fr.sttc.tournament.client.tournament.board.Action;
 import fr.sttc.tournament.client.tournament.board.Team;
 import fr.sttc.tournament.client.tournament.game.ActionManager;
 import fr.sttc.tournament.client.tournament.game.ResultTournament;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class TicTacToeActionManager implements ActionManager {
 
     Map<String, TicTacToeBoard> allBoards = new HashMap<>();
 
+    private final static Logger logger = LoggerFactory.getLogger(TicTacToeActionManager.class);
 
     @Override
     public Boolean createBoard(String gameId) {
@@ -26,7 +30,8 @@ public class TicTacToeActionManager implements ActionManager {
     @Override
     public Action askForMove(String gameId) {
         TicTacToeBoard ticTacToeBoard = allBoards.get(gameId);
-        return new TicTacToeAction(
+        logger.info(String.format("board: %s", ticTacToeBoard.getBoard()));
+        TicTacToeAction ticTacToeAction = new TicTacToeAction(
                 IntStream.range(0, 8)
                         .filter(a -> ticTacToeBoard.events
                                 .stream()
@@ -35,6 +40,8 @@ public class TicTacToeActionManager implements ActionManager {
                         )
                         .findAny()
                         .orElse(0));
+        logger.info(String.format("action selected: %s", ticTacToeAction.position.toString()));
+        return ticTacToeAction;
     }
 
     @Override
