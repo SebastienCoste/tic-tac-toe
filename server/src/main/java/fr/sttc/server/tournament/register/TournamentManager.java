@@ -18,6 +18,11 @@ public class TournamentManager  {
         return getTournament(game, gameId).register(team, url);
     }
 
+    public boolean close (Game game, String gameId){
+
+        return tournaments.remove(gameId) != null;
+    }
+
     public boolean start (Game game, String gameId){
 
         return getTournament(game, gameId).start();

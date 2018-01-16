@@ -1,10 +1,12 @@
 package fr.sttc.server.api.tictactoe;
 
+import fr.sttc.server.StaticApplicationContext;
 import fr.sttc.server.api.TournamentRunnable;
 import fr.sttc.server.tictactoe.TicTacToeTeam;
 import fr.sttc.server.tictactoe.TicTacToeBoard;
 import fr.sttc.server.tournament.client.TournamentClientFactory;
 import fr.sttc.server.tournament.game.Game;
+import fr.sttc.server.tournament.register.TournamentManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +33,7 @@ public class TicTacToeRunnableRunnable implements TournamentRunnable {
         while (!tournamentBoard.isFinished) {
             tournamentBoard.runNextMove();
         }
+        StaticApplicationContext.getContext().getBean(TournamentManager.class).close(Game.TICTACTOE, tournamentBoard.gameId);
     }
 
 

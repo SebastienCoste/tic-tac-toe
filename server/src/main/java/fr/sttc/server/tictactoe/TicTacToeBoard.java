@@ -29,7 +29,7 @@ public class TicTacToeBoard implements TournamentBoard {
     private String[] board;
     public boolean isFinished = false;
     private TicTacToeTeam team;
-    private String gameId;
+    public String gameId;
     private Integer numberOfMove = 0;
 
     public TicTacToeBoard(List<TournamentClient> cross, List<TournamentClient> round, String gameId) {
@@ -44,15 +44,19 @@ public class TicTacToeBoard implements TournamentBoard {
 
     @Override
     public void runNextMove() {
-        numberOfMove++;
-        logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s]", gameId, numberOfMove.toString(), team.toString()));
-        Integer position = requestVotesToPlayers(team == TicTacToeTeam.ROUND ? round : cross).value();
-        if (position == null || position < 0 || position > 8) {
-            sayWinAndLoose(team.next());
+        if(isFinished){
+            logger.error("game is finished, why keep asking the board ?");
         } else {
-            tellMove(new Move(gameId, team, new TicTacToeAction(position), numberOfMove));
-            play(team, position);
-            team = team.next();
+            numberOfMove++;
+            logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s]", gameId, numberOfMove.toString(), team.toString()));
+            Integer position = requestVotesToPlayers(team == TicTacToeTeam.ROUND ? round : cross).value();
+            if (position == null || position < 0 || position > 8) {
+                sayWinAndLoose(team.next());
+            } else {
+                tellMove(new Move(gameId, team, new TicTacToeAction(position), numberOfMove));
+                play(team, position);
+                team = team.next();
+            }
         }
     }
 
@@ -87,11 +91,11 @@ public class TicTacToeBoard implements TournamentBoard {
                 case CROSS:
                     tournamentApiClients.tellThemTheyWon(this.cross);
                     tournamentApiClients.tellThemTheyLost(this.round);
-                    return;
+                    break;
                 case ROUND:
                     tournamentApiClients.tellThemTheyWon(this.round);
                     tournamentApiClients.tellThemTheyLost(this.cross);
-                    return;
+                    break;
             }
         }
         isFinished = true;
