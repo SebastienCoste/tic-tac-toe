@@ -59,9 +59,9 @@ public class ClientManager {
         return true;
     }
 
-    private Request getRequestFromEvent(String url){
+    private Request getRequestFromEvent(String url) {
 
-        return  new Request.Builder()
+        return new Request.Builder()
                 .url(url)
                 .build();
     }

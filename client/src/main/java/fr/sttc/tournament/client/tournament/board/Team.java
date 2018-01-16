@@ -14,7 +14,7 @@ public interface Team {
 
     Team[] allValues();
 
-    default Team from(String letter){
+    default Team from(String letter) {
 
         return Arrays.stream(allValues()).filter(t -> t.letter != null && t.letter.equals(letter))
                 .findFirst().orElse(null);

@@ -1,6 +1,5 @@
 package fr.sttc.tournament.client.api.tictactoe;
 
-import fr.sttc.tournament.client.tournament.board.Team;
 import fr.sttc.tournament.client.tournament.game.ResultTournament;
 import fr.sttc.tournament.client.tournament.tictactoe.TicTacToeAction;
 import fr.sttc.tournament.client.tournament.tictactoe.TicTacToeActionManager;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(value= "/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
+@RequestMapping(value = "/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
 public class GameController {
 
     private final static Logger logger = LoggerFactory.getLogger(GameController.class);
@@ -28,7 +27,7 @@ public class GameController {
     }
 
     @RequestMapping(path = "/ask/{gameId}", method = RequestMethod.GET)
-    public String askForMove (@NotNull @PathVariable String gameId){
+    public String askForMove(@NotNull @PathVariable String gameId) {
 
         logger.info(String.format("/tictactoe/ask/%s", gameId));
 
@@ -39,10 +38,10 @@ public class GameController {
     }
 
     @RequestMapping(path = "/move/{gameId}/{team}/{moveNumber}/{serializedMove}", method = RequestMethod.GET)
-    public Boolean tellTheMove (@NotNull @PathVariable String gameId,
-                                @NotNull @PathVariable String team,
-                                @NotNull @PathVariable Integer moveNumber,
-                                @NotNull @PathVariable String serializedMove){
+    public Boolean tellTheMove(@NotNull @PathVariable String gameId,
+                               @NotNull @PathVariable String team,
+                               @NotNull @PathVariable Integer moveNumber,
+                               @NotNull @PathVariable String serializedMove) {
 
         logger.info(String.format("/tictactoe/move/%s/%s/%s/%s",
                 gameId, team.toString(), moveNumber.toString(), serializedMove
@@ -56,7 +55,7 @@ public class GameController {
     }
 
     @RequestMapping(path = "/result/{gameId}/{result}", method = RequestMethod.GET)
-    public Boolean tellTheResult (@NotNull @PathVariable String gameId, @NotNull @PathVariable String result){
+    public Boolean tellTheResult(@NotNull @PathVariable String gameId, @NotNull @PathVariable String result) {
 
         logger.info(String.format("/tictactoe/result/%s/%s",
                 gameId, result

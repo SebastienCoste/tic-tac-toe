@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(value= "/tournament/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
+@RequestMapping(value = "/tournament/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
 public class ClientController {
 
     private final static Logger logger = LoggerFactory.getLogger(ClientController.class);
@@ -28,10 +28,10 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/register/{gameId}/{team}/{serverUrl}", method = RequestMethod.GET)
-    public Boolean register (@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String serverUrl){
+    public Boolean register(@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String serverUrl) {
         logger.info(String.format("/tournament/tictactoe/register/%s/%s/%s",
                 gameId, team, serverUrl
-                ));
+        ));
         Boolean register = clientManager.register(Game.TICTACTOE, gameId, team, serverUrl);
         register = register ? ticTacToeActionManager.createBoard(gameId) : false;
         logger.info(String.format("/tournament/tictactoe/register/%s/%s/%s : %s",
@@ -41,7 +41,7 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/start/{gameId}/{serverUrl}", method = RequestMethod.GET)
-    public Boolean start (@NotNull @PathVariable String gameId, @NotNull @PathVariable String serverUrl){
+    public Boolean start(@NotNull @PathVariable String gameId, @NotNull @PathVariable String serverUrl) {
         logger.info(String.format("/tournament/tictactoe/start/%s",
                 gameId
         ));

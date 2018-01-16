@@ -2,7 +2,6 @@ package fr.sttc.server.api;
 
 import fr.sttc.server.tournament.board.Action;
 import fr.sttc.server.tournament.client.EventClient;
-import fr.sttc.server.tournament.client.TournamentClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,7 +22,7 @@ public class TournamentApiClient {
             .build();
 
 
-    public <T extends Action> T sendEvent(EventClient event, Function<String, T> caster){
+    public <T extends Action> T sendEvent(EventClient event, Function<String, T> caster) {
 
         try {
             logger.info(String.format("call server -> client: %s", event.request));
@@ -39,9 +38,9 @@ public class TournamentApiClient {
     }
 
 
-    private Request getRequestFromEvent(EventClient event){
+    private Request getRequestFromEvent(EventClient event) {
 
-        return  new Request.Builder()
+        return new Request.Builder()
                 .url(event.request)
                 .build();
     }

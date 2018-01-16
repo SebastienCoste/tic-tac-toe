@@ -14,7 +14,7 @@ public class TicTacToeEvent {
         this.action = action;
     }
 
-    public String getBoardValue(){
+    public String getBoardValue() {
         return team == null ? " " : team.letter;
     }
 

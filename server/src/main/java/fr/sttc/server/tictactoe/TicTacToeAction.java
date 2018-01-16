@@ -25,12 +25,12 @@ public class TicTacToeAction implements Action {
     }
 
     @Override
-    public  Function<String, TicTacToeAction> getDeserializer() {
+    public Function<String, TicTacToeAction> getDeserializer() {
         return s -> {
             Integer pos = null;
             try {
                 pos = s == null ? -1 : Integer.valueOf(s);
-            }catch (NumberFormatException nfe){
+            } catch (NumberFormatException nfe) {
             }
             return new TicTacToeAction(pos);
         };

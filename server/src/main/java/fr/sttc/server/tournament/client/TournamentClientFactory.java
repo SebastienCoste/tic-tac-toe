@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class TournamentClientFactory {
 
-    public static TournamentClient buildClient (Game game, String url, String gameId, Team team){
+    public static TournamentClient buildClient(Game game, String url, String gameId, Team team) {
 
-        switch (game){
+        switch (game) {
             case TICTACTOE:
                 return new TicTacToeClient(url, gameId, (TicTacToeTeam) team, game);
             case CONNECT4:
@@ -23,7 +23,7 @@ public class TournamentClientFactory {
         return null;
     }
 
-    public static List<TournamentClient> buildClients(Game game, Collection<String> urls, String gameId, Team team){
+    public static List<TournamentClient> buildClients(Game game, Collection<String> urls, String gameId, Team team) {
 
         return urls.stream().map(url -> buildClient(game, url, gameId, team)).collect(Collectors.toList());
     }

@@ -14,13 +14,13 @@ public class Tournament {
     public boolean isStarted = false;
     public String gameId;
 
-    public Tournament (String gameId){
+    public Tournament(String gameId) {
         this.gameId = gameId;
     }
 
-    public boolean start(){
+    public boolean start() {
 
-        if(isStarted || cross.size() ==0 || round.size() == 0){
+        if (isStarted || cross.size() == 0 || round.size() == 0) {
             return false;
         }
         isStarted = true;

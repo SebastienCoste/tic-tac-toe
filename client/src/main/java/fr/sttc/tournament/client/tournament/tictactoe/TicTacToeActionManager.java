@@ -1,6 +1,5 @@
 package fr.sttc.tournament.client.tournament.tictactoe;
 
-import fr.sttc.tournament.client.api.tictactoe.GameController;
 import fr.sttc.tournament.client.tournament.board.Action;
 import fr.sttc.tournament.client.tournament.board.Team;
 import fr.sttc.tournament.client.tournament.game.ActionManager;
@@ -9,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;

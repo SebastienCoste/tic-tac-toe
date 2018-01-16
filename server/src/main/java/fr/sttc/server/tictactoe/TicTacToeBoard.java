@@ -1,12 +1,12 @@
 package fr.sttc.server.tictactoe;
 
-import fr.sttc.server.tournament.board.Action;
-import fr.sttc.server.tournament.board.TournamentBoard;
-import fr.sttc.server.tournament.board.Move;
-import fr.sttc.server.tournament.validation.GameStatus;
 import fr.sttc.server.api.TournamentApiClients;
+import fr.sttc.server.tournament.board.Action;
+import fr.sttc.server.tournament.board.Move;
+import fr.sttc.server.tournament.board.TournamentBoard;
 import fr.sttc.server.tournament.client.TournamentClient;
 import fr.sttc.server.tournament.validation.GameState;
+import fr.sttc.server.tournament.validation.GameStatus;
 import fr.sttc.server.tournament.validation.TournamentReferee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class TicTacToeBoard implements TournamentBoard {
 

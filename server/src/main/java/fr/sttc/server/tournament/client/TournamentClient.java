@@ -6,8 +6,6 @@ import fr.sttc.server.tournament.board.Move;
 import fr.sttc.server.tournament.board.ResultTournament;
 import fr.sttc.server.tournament.board.Team;
 import fr.sttc.server.tournament.game.Game;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public abstract class TournamentClient {
@@ -19,12 +17,11 @@ public abstract class TournamentClient {
     private Game game;
 
 
-
     private TournamentApiClient client = new TournamentApiClient();
 
     public abstract Action getActionRepresentative();
 
-    public TournamentClient(String url, String gameId, Team team, Game game){
+    public TournamentClient(String url, String gameId, Team team, Game game) {
         this.url = url;
         this.game = game;
         this.active = true;
@@ -33,10 +30,9 @@ public abstract class TournamentClient {
     }
 
 
+    public Action askForMove() {
 
-    public Action askForMove(){
-
-        if(!active){
+        if (!active) {
             return null;
         }
 
@@ -44,15 +40,15 @@ public abstract class TournamentClient {
                 new EventClient(("http://" + url + "/" + game + "/ask/" + gameId).toString().toLowerCase()),
                 getActionRepresentative().getDeserializer()
         );
-        if(move == null){
+        if (move == null) {
             active = false;
         }
         return move;
     }
 
-    public void tellMove(Move move){
+    public void tellMove(Move move) {
 
-        if(!active){
+        if (!active) {
             return;
         }
 
@@ -63,9 +59,9 @@ public abstract class TournamentClient {
 
     }
 
-    public void tellResult(ResultTournament result){
+    public void tellResult(ResultTournament result) {
 
-        if(!active){
+        if (!active) {
             return;
         }
 

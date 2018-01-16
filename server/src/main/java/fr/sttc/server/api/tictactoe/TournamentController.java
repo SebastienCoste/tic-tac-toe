@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(value= "/tournament/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
+@RequestMapping(value = "/tournament/tictactoe", produces = MediaType.TEXT_PLAIN_VALUE)
 public class TournamentController {
 
     private final TournamentManager tournamentManager;
@@ -26,7 +26,7 @@ public class TournamentController {
     }
 
     @RequestMapping(path = "/register/{gameId}/{team}/{clientUrl}", method = RequestMethod.GET)
-    public Boolean register (@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String clientUrl){
+    public Boolean register(@NotNull @PathVariable String gameId, @NotNull @PathVariable String team, @NotNull @PathVariable String clientUrl) {
 
         logger.info(String.format("/tournament/tictactoe/register/%s/%s/%s",
                 gameId, team, clientUrl
@@ -39,7 +39,7 @@ public class TournamentController {
     }
 
     @RequestMapping(path = "/start/{gameId}", method = RequestMethod.GET)
-    public Boolean start (@NotNull @PathVariable String gameId){
+    public Boolean start(@NotNull @PathVariable String gameId) {
         logger.info(String.format("/tournament/tictactoe/start/%s",
                 gameId
         ));

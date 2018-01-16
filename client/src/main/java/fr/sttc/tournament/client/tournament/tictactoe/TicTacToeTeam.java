@@ -12,33 +12,33 @@ public enum TicTacToeTeam implements Team {
 
     public String letter;
 
-    public String getLetter(){
+    public String getLetter() {
         return this.letter;
     }
 
-    public Team[] allValues(){
+    public Team[] allValues() {
         return TicTacToeTeam.values();
     }
 
-    TicTacToeTeam(String letter){
+    TicTacToeTeam(String letter) {
         this.letter = letter;
     }
 
-    public TicTacToeTeam next(){
+    public TicTacToeTeam next() {
         return (this == TicTacToeTeam.CROSS ? ROUND : CROSS);
     }
 
-    public TicTacToeTeam newTeam(){
-        return (Math.floor(Math.random() *2) == 1? ROUND : CROSS);
+    public TicTacToeTeam newTeam() {
+        return (Math.floor(Math.random() * 2) == 1 ? ROUND : CROSS);
     }
 
-    public static TicTacToeTeam fromName(String name){
+    public static TicTacToeTeam fromName(String name) {
 
         return Arrays.stream(TicTacToeTeam.values()).filter(t -> t.toString().equalsIgnoreCase(name))
                 .findFirst().orElse(null);
     }
 
-    public TicTacToeTeam from(String letter){
+    public TicTacToeTeam from(String letter) {
 
         return Arrays.stream(TicTacToeTeam.values()).filter(t -> t.letter.equalsIgnoreCase(letter))
                 .findFirst().orElse(null);

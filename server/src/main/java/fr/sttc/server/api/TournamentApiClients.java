@@ -27,24 +27,24 @@ public class TournamentApiClients {
         completionAskingForMoveService = new ExecutorCompletionService<>(executorService);
     }
 
-    public void tellThemThisMove(List<TournamentClient> clients, Move move){
+    public void tellThemThisMove(List<TournamentClient> clients, Move move) {
 
         clients.forEach(client -> executorService.submit(() -> client.tellMove(move)));
     }
 
-    public void tellThemTheyWon(List<TournamentClient> clients){
+    public void tellThemTheyWon(List<TournamentClient> clients) {
         tellThemThisResult(clients, ResultTournament.WIN);
     }
 
-    public void tellThemTheyLost(List<TournamentClient> clients){
+    public void tellThemTheyLost(List<TournamentClient> clients) {
         tellThemThisResult(clients, ResultTournament.LOOSE);
     }
 
-    public void tellThemItsATie(List<TournamentClient> clients){
+    public void tellThemItsATie(List<TournamentClient> clients) {
         tellThemThisResult(clients, ResultTournament.TIE);
     }
 
-    private void tellThemThisResult(List<TournamentClient> clients, ResultTournament result){
+    private void tellThemThisResult(List<TournamentClient> clients, ResultTournament result) {
         clients.forEach(client -> executorService.submit(() -> client.tellResult(result)));
     }
 
@@ -55,18 +55,17 @@ public class TournamentApiClients {
 
         int received = 0;
         Map<Action, Integer> voteByNumber = new HashMap<>();
-        while(received < clients.size()) {
+        while (received < clients.size()) {
             try {
                 Future<Action> resultFuture = completionAskingForMoveService.take(); //blocks if none available
                 Action move = resultFuture.get();
-                voteByNumber.merge(move, 1, (a,b) -> a+b);
+                voteByNumber.merge(move, 1, (a, b) -> a + b);
                 logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s] vote for %s", unionRepresentative.gameId, numberOfMove.toString(), unionRepresentative.team.toString(),
                         move.value().toString()));
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 logger.error(e.getMessage());
             } finally {
-                received ++;
+                received++;
             }
         }
         return voteByNumber;
