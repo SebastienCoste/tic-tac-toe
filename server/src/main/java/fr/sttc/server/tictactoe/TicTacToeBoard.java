@@ -50,10 +50,10 @@ public class TicTacToeBoard implements TournamentBoard {
             numberOfMove++;
             logger.info(String.format("GAME [%s] MOVE [%s], TEAM [%s]", gameId, numberOfMove.toString(), team.toString()));
             Integer position = requestVotesToPlayers(team == TicTacToeTeam.ROUND ? round : cross).value();
+            tellMove(new Move(gameId, team, new TicTacToeAction(position), numberOfMove));
             if (position == null || position < 0 || position > 8) {
                 sayWinAndLoose(team.next());
             } else {
-                tellMove(new Move(gameId, team, new TicTacToeAction(position), numberOfMove));
                 play(team, position);
                 team = team.next();
             }

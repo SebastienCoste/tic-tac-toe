@@ -30,7 +30,6 @@ public class TicTacToeActionManager implements ActionManager {
     @Override
     public Action askForMove(String gameId) {
         TicTacToeBoard ticTacToeBoard = allBoards.get(gameId);
-        logger.info(String.format("board: %s", ticTacToeBoard.getBoard()));
         TicTacToeAction ticTacToeAction = new TicTacToeAction(
                 IntStream.range(0, 8)
                         .filter(a -> ticTacToeBoard.events
@@ -47,7 +46,9 @@ public class TicTacToeActionManager implements ActionManager {
     @Override
     public Boolean tellTheMove(String gameId, Team team, Integer moveNumber, Action action) {
         TicTacToeBoard ticTacToeBoard = allBoards.get(gameId);
-        return ticTacToeBoard.addAction(team, moveNumber, (TicTacToeAction) action);
+        Boolean actionAdded = ticTacToeBoard.addAction(team, moveNumber, (TicTacToeAction) action);
+        logger.info(String.format("board: %s", ticTacToeBoard.getBoard()));
+        return actionAdded;
     }
 
     @Override
