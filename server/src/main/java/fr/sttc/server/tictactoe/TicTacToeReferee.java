@@ -22,8 +22,8 @@ public class TicTacToeReferee implements TournamentReferee {
             (List<Integer>) Arrays.asList(0, 4, 8),
             (List<Integer>) Arrays.asList(2, 4, 6)
     );
-    public static final String UNMATCH = "!";
-    public static final String STARTER_REDUCE = "?";
+    private static final String UNMATCH = "!";
+    private static final String STARTER_REDUCE = "?";
     public static final String EMPTY = "";
 
 

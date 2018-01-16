@@ -6,7 +6,7 @@ import fr.sttc.server.tournament.game.Game;
 
 public class TicTacToeClient extends TournamentClient {
 
-    public static final Action unionRepresentative = new TicTacToeAction(0);
+    private static final Action unionRepresentative = new TicTacToeAction(0);
 
     public TicTacToeClient(String url, String gameId, TicTacToeTeam team, Game game) {
         super(url, gameId, team, game);

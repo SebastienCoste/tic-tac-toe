@@ -9,10 +9,10 @@ import java.util.Set;
 
 public class Tournament {
 
-    public Set<String> cross = new HashSet<>();
-    public Set<String> round = new HashSet<>();
-    public boolean isStarted = false;
-    public String gameId;
+    private final Set<String> cross = new HashSet<>();
+    private final Set<String> round = new HashSet<>();
+    private boolean isStarted = false;
+    private final String gameId;
 
     public Tournament(String gameId) {
         this.gameId = gameId;

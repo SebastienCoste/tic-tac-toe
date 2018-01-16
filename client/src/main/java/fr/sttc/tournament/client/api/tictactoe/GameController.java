@@ -44,12 +44,12 @@ public class GameController {
                                @NotNull @PathVariable String serializedMove) {
 
         logger.info(String.format("/tictactoe/move/%s/%s/%s/%s",
-                gameId, team.toString(), moveNumber.toString(), serializedMove
+                gameId, team, moveNumber.toString(), serializedMove
         ));
         Boolean received = ticTacToeActionManager.tellTheMove(gameId, TicTacToeTeam.fromName(team), moveNumber, TicTacToeAction.EMPTY.getDeserializer().apply(serializedMove));
 
         logger.info(String.format("/tictactoe/move/%s/%s/%s/%s : %s",
-                gameId, team.toString(), moveNumber.toString(), serializedMove, received.toString()
+                gameId, team, moveNumber.toString(), serializedMove, received.toString()
         ));
         return received;
     }
@@ -62,7 +62,7 @@ public class GameController {
         ));
         Boolean received = ticTacToeActionManager.tellTheResult(gameId, ResultTournament.valueOf(result.toUpperCase()));
         logger.info(String.format("/tictactoe/result/%s/%s : %s",
-                gameId, result.toString(), received.toString()
+                gameId, result, received.toString()
         ));
         return received;
     }

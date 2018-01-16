@@ -4,7 +4,7 @@ import fr.sttc.server.tictactoe.Tournament;
 import fr.sttc.server.tournament.game.Game;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class TournamentFactory {
+class TournamentFactory {
 
 
     public static Tournament buildTournament(Game game, String tournamentId) {

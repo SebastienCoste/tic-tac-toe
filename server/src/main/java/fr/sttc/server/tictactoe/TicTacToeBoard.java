@@ -20,15 +20,15 @@ public class TicTacToeBoard implements TournamentBoard {
 
     private final static Logger logger = LoggerFactory.getLogger(TicTacToeBoard.class);
 
-    public final TournamentApiClients tournamentApiClients;
-    TournamentReferee referee = new TicTacToeReferee();
+    private final TournamentApiClients tournamentApiClients;
+    private final TournamentReferee referee = new TicTacToeReferee();
 
     private final List<TournamentClient> cross;
     private final List<TournamentClient> round;
-    private String[] board;
+    private final String[] board;
     public boolean isFinished = false;
     private TicTacToeTeam team;
-    public String gameId;
+    public final String gameId;
     private Integer numberOfMove = 0;
 
     public TicTacToeBoard(List<TournamentClient> cross, List<TournamentClient> round, String gameId) {

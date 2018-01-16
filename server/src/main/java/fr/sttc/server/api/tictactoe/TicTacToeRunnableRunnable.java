@@ -18,7 +18,7 @@ public class TicTacToeRunnableRunnable implements TournamentRunnable {
     private final static Logger logger = LoggerFactory.getLogger(TicTacToeRunnableRunnable.class);
 
 
-    public TicTacToeBoard tournamentBoard;
+    private final TicTacToeBoard tournamentBoard;
 
     public TicTacToeRunnableRunnable(Set<String> cross, Set<String> round, String gameId) {
         tournamentBoard = new TicTacToeBoard(

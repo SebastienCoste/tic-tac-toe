@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class TournamentClientFactory {
 
-    public static TournamentClient buildClient(Game game, String url, String gameId, Team team) {
+    private static TournamentClient buildClient(Game game, String url, String gameId, Team team) {
 
         switch (game) {
             case TICTACTOE:

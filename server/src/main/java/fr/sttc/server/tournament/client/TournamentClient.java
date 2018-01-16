@@ -10,18 +10,18 @@ import fr.sttc.server.tournament.game.Game;
 
 public abstract class TournamentClient {
 
-    private String url;
+    private final String url;
     private Boolean active;
-    public String gameId;
-    public Team team;
-    private Game game;
+    public final String gameId;
+    public final Team team;
+    private final Game game;
 
 
-    private TournamentApiClient client = new TournamentApiClient();
+    private final TournamentApiClient client = new TournamentApiClient();
 
-    public abstract Action getActionRepresentative();
+    protected abstract Action getActionRepresentative();
 
-    public TournamentClient(String url, String gameId, Team team, Game game) {
+    protected TournamentClient(String url, String gameId, Team team, Game game) {
         this.url = url;
         this.game = game;
         this.active = true;
@@ -37,7 +37,7 @@ public abstract class TournamentClient {
         }
 
         Action move = client.sendEvent(
-                new EventClient(("http://" + url + "/" + game + "/ask/" + gameId).toString().toLowerCase()),
+                new EventClient(("http://" + url + "/" + game + "/ask/" + gameId).toLowerCase()),
                 getActionRepresentative().getDeserializer()
         );
         if (move == null) {
@@ -54,7 +54,7 @@ public abstract class TournamentClient {
 
         client.sendEvent(
                 new EventClient(("http://" + url + "/" + game + "/move/" + move.gameId + "/" + move.team.toString().toLowerCase() + "/" + move.moveNumber +
-                        "/" + move.position.serializeIt()).toString().toLowerCase()),
+                        "/" + move.position.serializeIt()).toLowerCase()),
                 null);
 
     }
@@ -66,7 +66,7 @@ public abstract class TournamentClient {
         }
 
         client.sendEvent(
-                new EventClient(("http://" + url + "/" + game + "/result/" + gameId + "/" + result.toString().toLowerCase()).toString().toLowerCase()),
+                new EventClient(("http://" + url + "/" + game + "/result/" + gameId + "/" + result.toString().toLowerCase()).toLowerCase()),
                 null);
 
         active = false;

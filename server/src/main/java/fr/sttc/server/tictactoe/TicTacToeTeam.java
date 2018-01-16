@@ -9,7 +9,12 @@ public enum TicTacToeTeam implements Team {
     CROSS("C"),
     ROUND("R");
 
-    public String letter;
+    public final String letter;
+
+    @Override
+    public String getLetter() {
+        return letter;
+    }
 
     public Team[] allValues() {
         return TicTacToeTeam.values();

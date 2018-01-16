@@ -2,14 +2,18 @@ package fr.sttc.tournament.client.tournament.tictactoe;
 
 
 import fr.sttc.tournament.client.tournament.board.Action;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Function;
 
 public class TicTacToeAction implements Action {
 
-    public static TicTacToeAction EMPTY = new TicTacToeAction(null);
+    private final static Logger logger = LoggerFactory.getLogger(TicTacToeAction.class);
 
-    Integer position;
+    public static final TicTacToeAction EMPTY = new TicTacToeAction(null);
+
+    final Integer position;
 
     public TicTacToeAction(Integer position) {
         this.position = position;
@@ -32,6 +36,7 @@ public class TicTacToeAction implements Action {
             try {
                 pos = s == null ? null : Integer.valueOf(s);
             } catch (NumberFormatException nfe) {
+                logger.error(nfe.getMessage());
             }
             return new TicTacToeAction(pos);
         };

@@ -2,10 +2,10 @@ package fr.sttc.tournament.client.tournament.tictactoe;
 
 import fr.sttc.tournament.client.tournament.board.Team;
 
-public class TicTacToeEvent {
-    public Team team;
-    public Integer moveNumber;
-    public TicTacToeAction action;
+class TicTacToeEvent {
+    public final Team team;
+    private final Integer moveNumber;
+    public final TicTacToeAction action;
 
 
     public TicTacToeEvent(Team team, Integer moveNumber, TicTacToeAction action) {
@@ -15,7 +15,7 @@ public class TicTacToeEvent {
     }
 
     public String getBoardValue() {
-        return team == null ? " " : team.letter;
+        return team == null ? " " : team.getLetter();
     }
 
     @Override

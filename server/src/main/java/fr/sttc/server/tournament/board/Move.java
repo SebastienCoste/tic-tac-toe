@@ -2,10 +2,10 @@ package fr.sttc.server.tournament.board;
 
 public class Move {
 
-    public String gameId;
-    public Team team;
-    public Action position;
-    public Integer moveNumber;
+    public final String gameId;
+    public final Team team;
+    public final Action position;
+    public final Integer moveNumber;
 
     public Move(String gameId, Team team, Action position, Integer moveNumber) {
         this.gameId = gameId;

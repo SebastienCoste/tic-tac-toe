@@ -18,10 +18,10 @@ public class TournamentApiClients {
 
     private final static Logger logger = LoggerFactory.getLogger(TicTacToeRunnableRunnable.class);
 
-    public static ExecutorService executorService = new ThreadPoolExecutor(1, 8, 0L, TimeUnit.MILLISECONDS,
+    private static final ExecutorService executorService = new ThreadPoolExecutor(1, 8, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>());
 
-    public final CompletionService<Action> completionAskingForMoveService;
+    private final CompletionService<Action> completionAskingForMoveService;
 
     public TournamentApiClients() {
         completionAskingForMoveService = new ExecutorCompletionService<>(executorService);

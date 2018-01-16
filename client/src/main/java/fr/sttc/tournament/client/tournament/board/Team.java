@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 public interface Team {
 
-    String letter = null;
-
     Team next();
 
     Team newTeam();
@@ -16,7 +14,7 @@ public interface Team {
 
     default Team from(String letter) {
 
-        return Arrays.stream(allValues()).filter(t -> t.letter != null && t.letter.equals(letter))
+        return Arrays.stream(allValues()).filter(t -> t.getLetter() != null && t.getLetter().equals(letter))
                 .findFirst().orElse(null);
     }
 }

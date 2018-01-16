@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StaticApplicationContext implements ApplicationContextAware {
 
-    static ApplicationContext applicationContext = null;
+    private static ApplicationContext applicationContext = null;
 
     public void setApplicationContext(ApplicationContext context) throws BeansException {
         applicationContext = context;

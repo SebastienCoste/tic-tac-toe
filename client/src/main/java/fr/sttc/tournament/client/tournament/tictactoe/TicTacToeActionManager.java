@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 @Service
 public class TicTacToeActionManager implements ActionManager {
 
-    Map<String, TicTacToeBoard> allBoards = new HashMap<>();
+    private final Map<String, TicTacToeBoard> allBoards = new HashMap<>();
 
     private final static Logger logger = LoggerFactory.getLogger(TicTacToeActionManager.class);
 

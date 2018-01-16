@@ -10,7 +10,7 @@ public enum TicTacToeTeam implements Team {
     CROSS("C"),
     ROUND("R");
 
-    public String letter;
+    final String letter;
 
     public String getLetter() {
         return this.letter;

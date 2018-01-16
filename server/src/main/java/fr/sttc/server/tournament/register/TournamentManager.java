@@ -11,16 +11,16 @@ import java.util.Map;
 public class TournamentManager {
 
 
-    Map<String, Tournament> tournaments = new HashMap<>();
+    private final Map<String, Tournament> tournaments = new HashMap<>();
 
     public boolean register(Game game, String gameId, String team, String url) {
 
         return getTournament(game, gameId).register(team, url);
     }
 
-    public boolean close(Game game, String gameId) {
+    public void close(Game game, String gameId) {
 
-        return tournaments.remove(getTournamentId(game, gameId)) != null;
+        tournaments.remove(getTournamentId(game, gameId));
     }
 
     public boolean start(Game game, String gameId) {
@@ -29,14 +29,8 @@ public class TournamentManager {
     }
 
     private synchronized Tournament getTournament(Game game, String gameId) {
-        String tournamentId = getTournamentId(game, gameId);
-        Tournament tournament = tournaments.get(tournamentId);
-        if (tournament == null) {
-            tournament = TournamentFactory.buildTournament(game, tournamentId);
-            tournaments.put(tournamentId, tournament);
-        }
-
-        return tournament;
+        return tournaments.computeIfAbsent(getTournamentId(game, gameId),
+                i -> TournamentFactory.buildTournament(game, i));
     }
 
     private String getTournamentId(Game game, String gameId) {
